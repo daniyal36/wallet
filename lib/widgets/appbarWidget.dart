@@ -10,44 +10,46 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
 
-      padding: EdgeInsets.only(top: 5,bottom: 5),
+
       color: color_blue,
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Flexible(
+          Container(
+            height: 30,
+            width: 40,
             child: RawMaterialButton(
+
               onPressed: () {},
               fillColor: const Color(0xFFF5F6F9),
               child: Icon(
                 Icons.person,
                 color: color_blue,
-                size: 35,
+                size: 20,
               ),
               shape: const CircleBorder(),
             ),
-            flex: 1,
           ),
-          Flexible(
-            child: Container(
-              alignment: Alignment.center,
+          Container(
+
+            alignment: Alignment.center,
     child: Image.asset(
       "assets/images/pkwallets_light.png",
+      height: 80,
+      width: 200,
     ),
     ),
-            flex: 2,
-          ),
-          const SizedBox(width: 10),
-          const Flexible(
+
+          Container(
+            height: 30,
+            width: 40,
             child: Icon(
               Icons.notifications_none,
               color: Colors.white,
               size: 30,
             ),
-            flex: 1,
           ),
-          const SizedBox(width: 1),
-        ],
+          ],
       ),
 
     );

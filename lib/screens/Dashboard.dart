@@ -5,6 +5,7 @@ import 'dart:convert' as convert;
 import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -35,7 +36,7 @@ class _DashBoardState extends State<DashBoard> {
   Padding CategoryGrid(
       AsyncSnapshot<List<Category>> snapshot, Function gridClicked) {
     return Padding(
-      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
+      padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5),
       child: GridView.builder(
         shrinkWrap: true,
         itemCount: snapshot.data!.length,
@@ -183,454 +184,458 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
-    double width = MediaQuery.of(context).size.width;
+     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     int _page = 0;
     GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
     var tabs = [
-      Stack(
-        children: [
-          Container(
-            height: height * 0.25,
-            color: color_blue,
-          ),
-          Container(
-              height: height,
-              width: width,
-              child: Column(
-                children: [
-                  MyAppBar(),
-                  Flexible(
-                      flex: 3,
-                      child: Container(
-                        margin: EdgeInsets.only(top: 10),
-                        height: height,
-                        width: width / 1.06,
-                        child: Center(
-                          child: Card(
-                              shape: RoundedRectangleBorder(
-                                side:
-                                    BorderSide(color: Colors.white70, width: 1),
-                                borderRadius: BorderRadius.circular(13),
-                              ),
-                              margin: EdgeInsets.all(5),
-                              elevation: 15.0,
-                              child: Padding(
-                                  padding: EdgeInsets.only(top: 15,right: 10,left: 10),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            // mainAxisAlignment:
-                                            //     MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              AutoSizeText(
-                                                "Current Balance",
-                                                // textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                  'Montserrat Medium',
-                                                  color: Colors.black,
-                                                  fontWeight:
-                                                  FontWeight.normal,
-                                                  fontSize: width * 0.046,),
-                                              ),
-                                              const SizedBox(
-                                                height: 2,
-                                              ),
-                                              AutoSizeText(
-                                                  "SR " + walletAmount,
+      SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: height * 0.25,
+              color: color_blue,
+            ),
+            Container(
+                height: height,
+                width: width,
+                child: Column(
+                  children: [
+                    MyAppBar(),
+                    Flexible(
+                        flex: 3,
+                        child: Container(
+
+                          height: height,
+                          width: width / 1.06,
+                          child: Center(
+                            child: Card(
+                                shape: RoundedRectangleBorder(
+                                  side:
+                                      BorderSide(color: Colors.white70, width: 1),
+                                  borderRadius: BorderRadius.circular(13),
+                                ),
+                                margin: EdgeInsets.all(5),
+                                elevation: 15.0,
+                                child: Padding(
+                                    padding: EdgeInsets.only(top: 15,right: 10,left: 10),
+                                    child: Center(
+                                      child:
+                                       Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+
+                                              // mainAxisAlignment:
+                                              //     MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                AutoSizeText(
+                                                  "Current Balance",
+                                                  // textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                     fontFamily:
                                                     'Montserrat Medium',
                                                     color: Colors.black,
-                                                    fontWeight: FontWeight.w900,
-                                                    // fontSize:  width * 0.09,
-                                                  ),
-                                                  minFontSize: 28),
-                                              const SizedBox(
-                                                height: 8,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  AutoSizeText(
-                                                      "Welcome ",
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                        'Montserrat Medium',
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.w500,
-                                                        // fontSize:  width * 0.09,
-                                                      ),
-                                                      minFontSize: 17),
-                                                  AutoSizeText(
-                                                      userName,
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                        'Montserrat Medium',
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.w900,
-                                                        // fontSize:  width * 0.09,
-                                                      ),
-                                                      minFontSize: 17),
-                                                ],)
-
-                                            ],
-                                          ),
-                                        ),
-
-                                        // const SizedBox(width: 20),
-                                        // Spacer(),
-                                        Expanded(
-                                          child: Center(
-
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              width: 130,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.all(
-                                                  Radius.circular(7.0),
+                                                    fontWeight:
+                                                    FontWeight.normal,
+                                                    fontSize:
+                                                    width * 0.046,),
                                                 ),
-                                                border: Border.all(
-                                                    color: color_blue,
-                                                    width: 2),
-                                                color: color_blue,
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-
-                                                  Container(
-                                                    child: Image.asset(
-                                                      "assets/images/toopup.png",
-                                                      // fit:BoxFit.scaleDown,
-                                                      height: 23,
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 5.0,),
-                                                  AutoSizeText(
-                                                    "Top Up",
+                                                const SizedBox(
+                                                  height: 2,
+                                                ),
+                                                AutoSizeText(
+                                                    "SR " + walletAmount,
                                                     style: TextStyle(
                                                       fontFamily:
                                                       'Montserrat Medium',
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                      // fontSize: 20,
-                                                      letterSpacing: 1,
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.w900,
+                                                      // fontSize:  width * 0.09,
                                                     ),
-                                                    minFontSize: 15,),
-                                                ],
-                                              ),
+                                                    minFontSize: 28),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+
+                                                  children: [
+                                                    AutoSizeText(
+                                                        "Welcome ",
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                          'Montserrat Medium',
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.w300,
+                                                          // fontSize:  width * 0.09,
+                                                        ),
+                                                        minFontSize: 12),
+                                                    AutoSizeText(
+                                                        userName,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                          'Montserrat Medium',
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.w900,
+                                                          // fontSize:  width * 0.09,
+                                                        ),
+                                                        minFontSize: 12),
+                                                  ],)
+
+                                              ],
                                             ),
-                                          )
-                                        ),
-                                      ],
-                                    ),
-                                  ))),
-                        ),
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0,top: 20.0),
-                    alignment: Alignment.topLeft,
-                    child: AutoSizeText(
-                      "Add New Transaction",
-                      style: TextStyle(
-                        fontFamily:
-                        'Montserrat Medium',
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                        letterSpacing: 1,
-                      ),
-                      minFontSize: 10,
-                    ),
-                  ),
-                  Flexible(
-                      flex: 4,
-                      child: Container(
-                        child: Center(
-                          child: Container(
-                            child: FutureBuilder<List<Category>>(
-                              future: Services.fetchCategoryData(
-                                  "http://newapp.pkwallets.com/api/get_all_category"),
-                              builder: (context, snapshot) {
-                                return snapshot.connectionState ==
-                                        ConnectionState.done
-                                    ? snapshot.hasData
-                                        ? CategoryGrid(snapshot, gridClicked)
-                                        : ComComp.retryButton(fetch)
-                                    : ComComp.circularProgress();
-                              },
-                            ),
-                          ),
-                        ),
-                      )),
-                  Flexible(
-                      flex: 1,
-                      child: Container(
-                        margin: EdgeInsets.only(top: 5),
-                        child: Column(
-                          children: [
-                            Wrap(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: 17, right: 17, bottom: 1),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(5.0),
-                                    ),
-                                    border:
-                                        Border.all(color: color_blue.withOpacity(0.6), width: 2),
-                                    color: color_blue.withOpacity(0.6),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Text(
-                                        "Recent Records",
-                                        style: TextStyle(color: Colors.black87, fontWeight:
-                                        FontWeight.bold, ),
+                                          ),
+
+                                          // const SizedBox(width: 20),
+                                          // Spacer(),
+                                          Expanded(
+                                            child: Center(
+
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: 100,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.all(
+                                                    Radius.circular(7.0),
+                                                  ),
+                                                  border: Border.all(
+                                                      color: color_blue,
+                                                      width: 2),
+                                                  color: color_blue,
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+
+                                                    Container(
+                                                      child: Image.asset(
+                                                        "assets/images/toopup.png",
+                                                        // fit:BoxFit.scaleDown,
+                                                        height: 23,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 5.0,),
+                                                    AutoSizeText(
+                                                      "Top Up",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        'Montserrat Medium',
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        // fontSize: 20,
+                                                        letterSpacing: 1,
+                                                      ),
+                                                      minFontSize: 8,),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
+                                    ))),
+                          ),
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(left: 20.0,top: 10.0),
+                      alignment: Alignment.topLeft,
+                      child: AutoSizeText(
+                        "Add New Transaction",
+                        style: TextStyle(
+                          fontFamily:
+                          'Montserrat Medium',
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10,
+                          letterSpacing: 1,
                         ),
-                      )),
-                  Flexible(
-                      flex: 4,
-                      child: Column(
-                        children: [
-                          Center(
+                        minFontSize: 10,
+                      ),
+                    ),
+                    Flexible(
+                        flex: 4,
+                        child: Container(
+                          child: Center(
                             child: Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FutureBuilder<List<RecentRecords>>(
-                                future: Services.fetchRecordsCount(
-                                    "http://newapp.pkwallets.com/api/get_count_record"),
+                              child: FutureBuilder<List<Category>>(
+                                future: Services.fetchCategoryData(
+                                    "http://newapp.pkwallets.com/api/get_all_category"),
                                 builder: (context, snapshot) {
                                   return snapshot.connectionState ==
                                           ConnectionState.done
                                       ? snapshot.hasData
-                                          ? RecordsCount(snapshot, gridClicked)
-                                          : Container(
-                                              width: size.longestSide,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Container(
-                                                    width: size.width * .25,
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          "100",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Medium',
-                                                              color: Colors.blue,
-                                                              fontWeight:
-                                                                  FontWeight.bold,
-                                                              fontSize: size.width*.08),
-                                                        ),
-                                                        Text(
-                                                          "Pending",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Medium',
-                                                              color: Colors.black,
-                                                              fontSize: 15),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: size.width * .3,
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          "120",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Medium',
-                                                              color: Colors.blue,
-                                                              fontWeight:
-                                                                  FontWeight.bold,
-                                                              fontSize: size.width*.08),
-                                                        ),
-                                                        Text(
-                                                          "Accepted",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Medium',
-                                                              color: Colors.black,
-                                                              fontSize: 15),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: size.width * .25,
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          "101",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Medium',
-                                                              color: Colors.blue,
-                                                              fontWeight:
-                                                                  FontWeight.bold,
-                                                              fontSize: size.width*.08),
-                                                        ),
-                                                        Text(
-                                                          "Refund",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Medium',
-                                                              color: Colors.black,
-                                                              fontSize: 15),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ))
-                                      /*ComComp.retryButton(fetch)*/
+                                          ? CategoryGrid(snapshot, gridClicked)
+                                          : ComComp.retryButton(fetch)
                                       : ComComp.circularProgress();
                                 },
                               ),
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: 17, right: 17, bottom: 1,top: 20),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Flexible(child: Container(
-                                    height:  height * 0.06,
-                                    child: RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(5.0))),
-                                      color: HexColor.fromHex('#3183b5'),
-                                      onPressed: () {
-                                      },
-                                      child: Center(
-                                        child: Text(
-                                          'View Transactions',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
+                        )),
+                    Flexible(
+                        flex: 1,
+                        child: Container(
+                          height: 80,
+                          child: Column(
+                            children: [
+                              Container(
+                                 margin: EdgeInsets.only(
+                                    left: 17, right: 17, bottom: 1),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5.0),
+                                  ),
+                                  border:
+                                      Border.all(color: color_blue.withOpacity(0.6), width: 2),
+                                  color: color_blue.withOpacity(0.6),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Text(
+                                      "Recent Records",
+                                      style: TextStyle(color: Colors.black87, fontWeight:
+                                      FontWeight.w500,fontSize: 10 ),
                                     ),
-                                  ), flex: 1,),
-                                  Flexible(child: Container(
-                                    height:  height * 0.06,
-                                    margin: EdgeInsets.only(left: 10),
-                                    child: RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(5.0))),
-                                      color: HexColor.fromHex('#3183b5'),
-                                      onPressed: () {
-                                      },
-                                      child: Center(
-                                        child: Text(
-                                          'View Logs',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ), flex: 1,)
-                                ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )),
+                    Flexible(
+                        flex: 4,
+                        child: Column(
+                          children: [
+                            Center(
+                              child: Container(
+                                 child: FutureBuilder<List<RecentRecords>>(
+                                  future: Services.fetchRecordsCount(
+                                      "http://newapp.pkwallets.com/api/get_count_record"),
+                                  builder: (context, snapshot) {
+                                    return snapshot.connectionState ==
+                                            ConnectionState.done
+                                        ? snapshot.hasData
+                                            ? RecordsCount(snapshot, gridClicked)
+                                            : Container(
+                                                width: size.longestSide,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Container(
+                                                      width: size.width * .25,
+                                                      child: Column(
+                                                        children: [
+                                                          Text(
+                                                            "100",
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Montserrat Medium',
+                                                                color: Colors.blue,
+                                                                fontWeight:
+                                                                    FontWeight.bold,
+                                                                fontSize: size.width*.06),
+                                                          ),
+                                                          Text(
+                                                            "Pending",
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Montserrat Medium',
+                                                                color: Colors.black,
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: size.width * .3,
+                                                      child: Column(
+                                                        children: [
+                                                          Text(
+                                                            "120",
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Montserrat Medium',
+                                                                color: Colors.blue,
+                                                                fontWeight:
+                                                                    FontWeight.bold,
+                                                                fontSize: size.width*.06),
+                                                          ),
+                                                          Text(
+                                                            "Accepted",
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Montserrat Medium',
+                                                                color: Colors.black,
+                                                                fontSize: 12,
+                                                              fontWeight: FontWeight.bold
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: size.width * .25,
+                                                      child: Column(
+                                                        children: [
+                                                          Text(
+                                                            "101",
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Montserrat Medium',
+                                                                color: Colors.blue,
+                                                                fontWeight:
+                                                                    FontWeight.bold,
+                                                                fontSize: size.width*.06),
+                                                          ),
+                                                          Text(
+                                                            "Refund",
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Montserrat Medium',
+                                                                color: Colors.black,
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ))
+                                        /*ComComp.retryButton(fetch)*/
+                                        : ComComp.circularProgress();
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                          // Container(
-                          //     width: size.longestSide,
-                          //     margin: EdgeInsets.only(top: 35),
-                          //     child: Row(
-                          //       mainAxisAlignment:
-                          //       MainAxisAlignment.center,
-                          //       mainAxisSize: MainAxisSize.max,
-                          //       children: [
-                          //         Container(
-                          //           height: height * 0.06,
-                          //           child:RaisedButton(
-                          //             shape: RoundedRectangleBorder(
-                          //                 borderRadius:
-                          //                 BorderRadius.all(Radius.circular(5.0))),
-                          //             color: HexColor.fromHex('#3183b5'),
-                          //             onPressed: () {
-                          //             },
-                          //             child: Center(
-                          //               child: Text(
-                          //                 'View Transactions',
-                          //                 style: TextStyle(
-                          //                   color: Colors.white,
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         Container(
-                          //           height: height * 0.06,
-                          //           margin: EdgeInsets.only(left: 10),
-                          //           child:RaisedButton(
-                          //             shape: RoundedRectangleBorder(
-                          //                 borderRadius:
-                          //                 BorderRadius.all(Radius.circular(5.0))),
-                          //             color: HexColor.fromHex('#3183b5'),
-                          //             onPressed: () {
-                          //             },
-                          //             child: Center(
-                          //               child: Text(
-                          //                 'View Logs',
-                          //                 style: TextStyle(
-                          //                   color: Colors.white,
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         )
-                          //       ],
-                          //     ))
-                        ],
-                      )),
-                ],
-              ))
-        ],
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 17, right: 17, bottom: 1,top: 5),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Flexible(child: Container(
+                                      height:  height * 0.06,
+                                      child: RaisedButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(5.0))),
+                                        color: HexColor.fromHex('#3183b5'),
+                                        onPressed: () {
+                                        },
+                                        child: Center(
+                                          child: Text(
+                                            'View Transactions',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ), flex: 1,),
+                                    Flexible(child: Container(
+                                      height:  height * 0.06,
+                                      margin: EdgeInsets.only(left: 10),
+                                      child: RaisedButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(5.0))),
+                                        color: HexColor.fromHex('#3183b5'),
+                                        onPressed: () {
+                                        },
+                                        child: Center(
+                                          child: Text(
+                                            'View Logs',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ), flex: 1,)
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // Container(
+                            //     width: size.longestSide,
+                            //     margin: EdgeInsets.only(top: 35),
+                            //     child: Row(
+                            //       mainAxisAlignment:
+                            //       MainAxisAlignment.center,
+                            //       mainAxisSize: MainAxisSize.max,
+                            //       children: [
+                            //         Container(
+                            //           height: height * 0.06,
+                            //           child:RaisedButton(
+                            //             shape: RoundedRectangleBorder(
+                            //                 borderRadius:
+                            //                 BorderRadius.all(Radius.circular(5.0))),
+                            //             color: HexColor.fromHex('#3183b5'),
+                            //             onPressed: () {
+                            //             },
+                            //             child: Center(
+                            //               child: Text(
+                            //                 'View Transactions',
+                            //                 style: TextStyle(
+                            //                   color: Colors.white,
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //         Container(
+                            //           height: height * 0.06,
+                            //           margin: EdgeInsets.only(left: 10),
+                            //           child:RaisedButton(
+                            //             shape: RoundedRectangleBorder(
+                            //                 borderRadius:
+                            //                 BorderRadius.all(Radius.circular(5.0))),
+                            //             color: HexColor.fromHex('#3183b5'),
+                            //             onPressed: () {
+                            //             },
+                            //             child: Center(
+                            //               child: Text(
+                            //                 'View Logs',
+                            //                 style: TextStyle(
+                            //                   color: Colors.white,
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         )
+                            //       ],
+                            //     ))
+                          ],
+                        )),
+                  ],
+                ))
+          ],
+        ),
       ),
       Stack(
         children: [
@@ -986,61 +991,58 @@ class CategoryCell extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width * 0.5,
-      height: size.height * 0.1,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        child: Material(
-          child: Container(
-
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(12.0),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.6),
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: Offset(0, 2), // changes position of shadow
-                ),
-              ],
-              border: Border.all(color: color_blue, width: 2),
+      width: size.width * 0.6,
+      height: size.height * 0.6,
+      child: Material(
+        child: Container(
+            height: 300,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(12.0),
             ),
-            child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // ConstrainedBox(
-                    //   constraints: BoxConstraints(
-                    //     minWidth: 20,
-                    //     minHeight: 30,
-                    //     maxWidth: 50,
-                    //     maxHeight: 80,
-                    //   ),
-                    //   child: Container(
-                    //     child: Image.asset(
-                    //       "assets/images/tpo.jpg",
-                    //       // fit:BoxFit.fitWidth,
-                    //       // height: 40,
-                    //     ),
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 20),
-                    Text(
-                      "${cellModel.name}",
-                      textAlign: TextAlign.center,
-                      // overflow: TextOverflow.ellipsis,
-                      style:
-                          TextStyle(color: color_blue, fontSize: size.width*.04,fontWeight: FontWeight.w500),
-                    ),
-                    // const SizedBox(height: 20),
-                  ],
-                )),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.6),
+                spreadRadius: 2,
+                blurRadius: 2,
+                offset: Offset(0, 2), //  changes position of shadow
+              ),
+            ],
+            border: Border.all(color: color_blue, width: 2),
           ),
+          child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // ConstrainedBox(
+                  //   constraints: BoxConstraints(
+                  //     minWidth: 20,
+                  //     minHeight: 30,
+                  //     maxWidth: 50,
+                  //     maxHeight: 80,
+                  //   ),
+                  //   child: Container(
+                  //     child: Image.asset(
+                  //       "assets/images/tpo.jpg",
+                  //       // fit:BoxFit.fitWidth,
+                  //       // height: 40,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 20),
+                  Text(
+                    "${cellModel.name}",
+                    textAlign: TextAlign.center,
+                    // overflow: TextOverflow.ellipsis,
+                    style:
+                        TextStyle(color: color_blue, fontSize: size.width*.04,fontWeight: FontWeight.w500),
+                  ),
+                  // const SizedBox(height: 20),
+                ],
+              )),
         ),
       ),
     );
@@ -1048,7 +1050,7 @@ class CategoryCell extends StatelessWidget {
 }
 
 class SubCategoryCell extends StatelessWidget {
-  const SubCategoryCell(this.cellModel);
+  const   SubCategoryCell(this.cellModel);
 
   @required
   final SubCategory cellModel;
@@ -1057,8 +1059,8 @@ class SubCategoryCell extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width * 0.5,
-      height: size.height * 0.1,
+      width: size.width * 0.2,
+      height: size.height * 0.2,
       child: Container(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 5),

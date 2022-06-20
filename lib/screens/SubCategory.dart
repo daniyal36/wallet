@@ -38,6 +38,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
           Center(
             child: Image.asset(
               "assets/images/header.jpeg",
+              height: 150,
               // fit:BoxFit.fitWidth,
               // height: 40,
             ),
